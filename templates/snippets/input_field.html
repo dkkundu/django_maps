@@ -1,0 +1,49 @@
+{% load widget_tweaks %}
+
+{% if label %}
+    {% if formfld.field.required %}<span class="text-danger">*</span>{% endif %}{{ formfld.label_tag }}
+{% endif %}
+<div class="input-group">
+    {% block prepend %}
+    {% if icon %}
+        <div class="input-group-prepend"><span class="input-group-text justify-content-center px-2" style="width: 35px">
+            <i class="{{ icon }}"></i>
+        </span></div>
+    {% endif %}
+    {% endblock prepend %}
+
+    {% block input %}
+    {% if form.is_bound %}
+        {% if formfld.errors %}
+            {% if prefill %}
+                {% render_field formfld|append_attr:"readonly:readonly" class="form-control form-control-sm is-invalid" placeholder=placeholder value=prefill %}
+            {% else %}
+                {% render_field formfld class="form-control form-control-sm is-invalid" placeholder=placeholder %}
+            {% endif %}
+            {% for error in formfld.errors %}
+                <div class="invalid-feedback font-saira">{{ error }}</div>
+            {% endfor %}
+        {% else %}
+            {% if prefill %}
+                {% render_field formfld|append_attr:"readonly:readonly" class="form-control form-control-sm is-valid" placeholder=placeholder value=prefill %}
+            {% else %}
+                {% render_field formfld class="form-control form-control-sm is-valid" placeholder=placeholder %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if prefill %}
+            {% render_field formfld|append_attr:"readonly:readonly" class="form-control form-control-sm" placeholder=placeholder value=prefill %}
+        {% else %}
+            {% render_field formfld class="form-control form-control-sm" placeholder=placeholder %}
+        {% endif %}
+    {% endif %}
+    {% endblock input %}
+
+    {% block append %}
+    {% if button_append %}
+        <div class="input-group-append">
+            <button class="btn btn-sm btn-outline-secondary" type="button" id="btn_{{ formfld }}">{{ button_text }}</button>
+        </div>
+    {% endif %}
+    {% endblock append %}
+</div>

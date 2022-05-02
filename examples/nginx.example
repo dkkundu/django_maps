@@ -1,0 +1,29 @@
+upstream uwsgi {
+        server unix:/opt/DJMAPS/uwsgi/uwsgi.sock;
+}
+
+server {
+        listen 80;
+        server_name _;
+
+        access_log /opt/DJMAPS/logs/access.log;
+        error_log /opt/DJMAPS/logs/error.log;
+
+        charset utf-8;
+        client_max_body_size 16M;
+
+        location /static {
+                alias /opt/DJMAPS/static;
+        }
+
+        location /media {
+                alias /opt/DJMAPS/media;
+        }
+
+        location / {
+                uwsgi_pass uwsgi;
+                include uwsgi_params;
+                uwsgi_read_timeout 300s;
+                uwsgi_send_timeout 300s;
+        }
+}

@@ -1,0 +1,39 @@
+{% load static %}
+
+<!-- META -->
+{% block meta %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Language" content="en-US"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <meta name="description" content="project_name">  <!-- site description -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="">  <!-- update href to domain address -->
+{% endblock meta %}
+
+<!-- FACICON -->
+{% block favicon %}
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+{% endblock favicon %}
+
+<!-- CSS -->
+{% block css %}
+    {% block css_main %}
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <!-- FontAwesome -->
+        <script src="https://kit.fontawesome.com/8c012c69b1.js" crossorigin="anonymous"></script>
+        <!-- add your css here -->
+        <link rel="stylesheet" href="{% static 'css/project.css' %}">
+    {% endblock css_main %}
+    {% block css_extra %}{% endblock css_extra %}
+
+    {% block font_main %}
+        <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Bebas+Neue&family=Saira+Condensed&display=swap" rel="stylesheet">
+        <!-- add your fonts here -->
+    {% endblock font_main %}
+    {% block font_extra %}{% endblock font_extra %}
+{% endblock css %}

@@ -1,0 +1,17 @@
+[Unit]
+Description=DJMAPS-uWSGI-instance
+After=network.target postgresql-11.service
+
+[Service]
+User=centos
+Group=nginx
+WorkingDirectory=/opt/DJMAPS
+Environment="PATH=/opt/DJMAPS/venv/bin"
+ExecStart=/opt/DJMAPS/venv/bin/uwsgi --ini /opt/DJMAPS/uwsgi/uwsgi.ini
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

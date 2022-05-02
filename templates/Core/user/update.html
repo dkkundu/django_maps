@@ -1,0 +1,148 @@
+{% extends 'base/base.html' %}
+{% load static widget_tweaks %}
+
+{% block title_text %}Update | User{% endblock %}
+{% block content_heading_text %}Update User{% endblock %}
+
+{% block crumbs_items %}
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:users' %}">USERS</a>
+    </li>
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:user_detail' object.pk %}">DETAIL</a>
+    </li>
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:user_update' object.pk %}">UPDATE</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="row no-gutters content-border my-1 p-3">
+        {% if perms.Core.change_user %}
+            {% if form %}
+                <form class="container-fluid" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
+                    {% csrf_token %}
+                    {% include 'snippets/hidden_fields.html' %}
+
+                    <!-- ID -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">ID :</div>
+                        <div class="col-8">{% include 'snippets/readonly_field.html' with value=object.id prepend_icon='fas fa-hashtag' %}</div>
+                    </div>
+
+                    <!-- first_name -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form.first_name.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.first_name placeholder=form.first_name.label icon='fas fa-id-card' %}</div>
+                    </div>
+
+                    <!-- last_name -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form.last_name.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.last_name placeholder=form.last_name.label icon='far fa-id-card' %}</div>
+                    </div>
+
+                    <!-- email -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form.email.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.email placeholder=form.email.label icon='fas fa-at' %}</div>
+                    </div>
+
+                    <!-- phone -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form.phone.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.phone placeholder=form.phone.label icon='fas fa-mobile-alt' %}</div>
+                    </div>
+
+                    <!-- date_joined -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">Date Joined :</div>
+                        <div class="col-8">{% include 'snippets/readonly_field.html' with value=object.date_joined type='text' prepend_icon='fas fa-calendar-day' %}</div>
+                    </div>
+
+                    <!-- last_updated -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">Last Updated :</div>
+                        <div class="col-8">{% include 'snippets/readonly_field.html' with value=object.last_updated type='text' prepend_icon='fas fa-calendar' %}</div>
+                    </div>
+
+                    <!-- last_login -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">Last Login :</div>
+                        <div class="col-8">{% include 'snippets/readonly_field.html' with value=object.last_login type='text' prepend_icon='fas fa-calendar-check' %}</div>
+                    </div>
+
+                    <!-- PROFILE -->
+                    <div class="row no-gutters text-light font-weight-bold font-saira bg-info border mt-4 mb-2 px-2 py-1"><h3 class="text-center mb-0">Profile</h3></div>
+                    {% include 'snippets/hidden_fields.html' with form=form2 %}
+
+                    <!-- image -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form2.image.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.image placeholder=form2.image.label icon='fas fa-id-badge' %}</div>
+                    </div>
+
+                    <!-- bio -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form2.bio.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.bio placeholder=form2.bio.label icon='fas fa-file-alt' %}</div>
+                    </div>
+
+                    <!-- birthday -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form2.birthday.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.birthday|append_attr:"type:date" placeholder=form2.birthday.label icon='fas fa-birthday-cake' %}</div>
+                    </div>
+
+                    <!-- gender -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form2.gender.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.gender placeholder=form2.gender.label icon='fas fa-restroom' %}</div>
+                    </div>
+
+                    <!-- spouse_name -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form2.spouse_name.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.spouse_name placeholder=form2.spouse_name.label icon='fas fa-user-friends' %}</div>
+                    </div>
+
+                    <!-- father_name -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form2.father_name.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.father_name placeholder=form2.father_name.label icon='fas fa-users' %}</div>
+                    </div>
+
+                    <!-- mother_name -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form2.mother_name.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.mother_name placeholder=form2.mother_name.label icon='fas fa-users' %}</div>
+                    </div>
+
+                    <!-- nid -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form2.nid.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.nid placeholder=form2.nid.label icon='fas fa-id-card' %}</div>
+                    </div>
+
+                    <!-- passport -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form2.passport.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form2 formfld=form2.passport placeholder=form2.passport.label icon='fas fa-passport' %}</div>
+                    </div>
+
+                    <!-- button -->
+                    <button id='loader' class="btn btn-sm btn-outline-info font-saira w-100 mt-2" type="button" hidden><i class="fa fa-spinner fa-spin mr-1"></i>SAVING...</button>
+                    <button id='submit' class="btn btn-sm btn-info font-saira w-100 mt-2" type="submit"><i class="fas fa-save mr-1"></i>SAVE</button>
+                </form>
+            {% else %}
+                No form found.
+            {% endif %}
+        {% else %}
+            User, you do not have permissions to update this content.
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js_extra %}
+    <script src="{% static 'js/btn_loader.js' %}"></script>
+{% endblock %}

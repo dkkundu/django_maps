@@ -1,0 +1,51 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+
+{% block title_text %}Signup{% endblock %}
+{% block reg_heading_text %}SIGNUP{% endblock %}
+
+{% block reg_content %}
+    <div class="row no-gutters justify-content-center">
+        <form class="col my-auto p-3" method="POST" accept-charset="UTF-8">
+            {% csrf_token %}
+            {% include 'snippets/hidden_fields.html' %}
+
+            <!-- email -->
+            <div class="form-row p-1">
+                {% include 'snippets/input_field.html' with form=form formfld=form.email placeholder=form.email.label icon='fas fa-at' %}
+            </div>
+
+            <!-- first_name -->
+            <div class="form-row p-1">
+                {% include 'snippets/input_field.html' with form=form formfld=form.first_name placeholder=form.first_name.label icon='fas fa-id-card' %}
+            </div>
+            <!-- last_name -->
+            <div class="form-row p-1">
+                {% include 'snippets/input_field.html' with form=form formfld=form.last_name placeholder=form.last_name.label icon='far fa-id-card' %}
+            </div>
+
+            <!-- phone -->
+            <div class="form-row p-1">
+                {% include 'snippets/input_field.html' with form=form formfld=form.phone placeholder=form.phone.label icon='fas fa-mobile-alt' %}
+            </div>
+
+            <!-- password1 -->
+            <div class="form-row p-1">
+                {% include 'snippets/passwd_field.html' with form=form formfld=form.password1 placeholder=form.password1.label icon='fas fa-key' %}
+            </div>
+            <!-- password2 -->
+            <div class="form-row p-1">
+                {% include 'snippets/passwd_field.html' with form=form formfld=form.password2 placeholder=form.password2.label icon='fas fa-lock' %}
+            </div>
+
+            <!-- button -->
+            <button id='loader' class="btn btn-sm btn-outline-info font-saira w-100 mt-2" type="button" hidden><i class="fa fa-spinner fa-spin mr-1"></i>SIGNING UP...</button>
+            <button id='submit' class="btn btn-sm btn-info font-saira w-100 mt-2" type="submit"><i class="fas fa-sign-in-alt mr-1"></i>SIGNUP</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block js_extra %}
+    <script src="{% static 'js/passwd_show.js' %}"></script>
+    <script src="{% static 'js/btn_loader.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% if messages %}
+    <ul class="messages mb-1 {% block msgs-ul-override %}{% endblock msgs-ul-override %}">
+        {% for message in messages %}
+            <li class="alert alert-dismissible fade show m-0 {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

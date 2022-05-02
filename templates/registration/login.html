@@ -1,0 +1,38 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title_text %}Login{% endblock %}
+{% block reg_heading_text %}LOGIN{% endblock %}
+
+{% block reg_content %}
+    <div class="row no-gutters justify-content-center">
+        <form class="col my-auto p-3" method="POST" accept-charset="UTF-8">
+            {% csrf_token %}
+            {% include 'snippets/hidden_fields.html' %}
+
+            <!-- username -->
+            <div class="form-row p-1">
+                {% include 'snippets/input_field.html' with form=form formfld=form.username placeholder=form.username.label icon='fas fa-at' %}
+            </div>
+            <!-- password -->
+            <div class="form-row p-1">
+                {% include 'snippets/passwd_field.html' with form=form formfld=form.password placeholder=form.password.label icon='fas fa-key' %}
+            </div>
+
+            <!-- forgot password -->
+            <a href="{% url 'password_reset' %}">
+                <button class="btn btn-sm btn-outline-secondary font-saira w-100 mt-2" type="button">FORGOT PASSWORD?</button>
+            </a>
+
+            <!-- button -->
+            <button id='loader' class="btn btn-sm btn-outline-info font-saira w-100 mt-2" type="button" hidden><i class="fa fa-spinner fa-spin mr-1"></i>LOGGING IN...</button>
+            <button id='submit' class="btn btn-sm btn-info font-saira w-100 mt-2" type="submit"><i class="fas fa-sign-in-alt mr-1"></i>LOGIN</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block js_extra %}
+    <script src="{% static 'js/passwd_show.js' %}"></script>
+    <script src="{% static 'js/btn_loader.js' %}"></script>
+{% endblock %}

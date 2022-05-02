@@ -1,0 +1,142 @@
+{% extends 'base/base.html' %}
+{% load static widget_tweaks %}
+
+{% block title_text %}Detail | User{% endblock %}
+{% block content_heading_text %}User Detail{% endblock %}
+
+{% block crumbs_items %}
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:users' %}">USERS</a>
+    </li>
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:user_detail' object.pk %}">DETAIL</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="row no-gutters content-border my-1 p-3">
+        {% if perms.Core.view_user and perms.Core.view_profile %}
+            {% if object %}
+                <div class="container-fluid">
+                    <!-- ID -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">ID :</div>
+                        <div class="col-8"><i class="fas fa-hashtag pr-1"></i>{{ object.id }}</div>
+                    </div>
+
+                    <!-- first_name -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">First name :</div>
+                        <div class="col-8"><i class="fas fa-id-card pr-1"></i>{{ object.first_name }}</div>
+                    </div>
+
+                    <!-- last_name -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Family name :</div>
+                        <div class="col-8"><i class="far fa-id-card pr-1"></i>{{ object.last_name }}</div>
+                    </div>
+
+                    <!-- email -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">Email address :</div>
+                        <div class="col-8"><i class="fas fa-at pr-1"></i>{{ object.email }}</div>
+                    </div>
+
+                    <!-- phone -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Mobile phone :</div>
+                        <div class="col-8"><i class="fas fa-mobile-alt pr-1"></i>{{ object.phone }}</div>
+                    </div>
+
+                    <!-- date_joined -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">Date Joined :</div>
+                        <div class="col-8"><i class="fas fa-calendar-day pr-1"></i>{{ object.date_joined }}</div>
+                    </div>
+
+                    <!-- last_updated -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Last Updated :</div>
+                        <div class="col-8"><i class="fas fa-calendar pr-1"></i>{{ object.last_updated }}</div>
+                    </div>
+
+                    <!-- last_login -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">Last Login :</div>
+                        <div class="col-8"><i class="fas fa-calendar-check pr-1"></i>{{ object.last_login }}</div>
+                    </div>
+
+                    <!-- PROFILE -->
+                    <div class="row text-light font-weight-bold font-saira bg-info border mt-4 mb-2 px-2 py-1"><h3 class="text-center mb-0">Profile</h3></div>
+
+                    <!-- image -->
+                    {% comment %}
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Profile picture :</div>
+                        <div class="col-8">{% object.image %}</div>
+                    </div>
+                    {% endcomment %}
+
+                    <!-- bio -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">Bio :</div>
+                        <div class="col-8"><i class="fas fa-file-alt pr-1"></i>{{ object.profile.bio }}</div>
+                    </div>
+
+                    <!-- birthday -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Birthday :</div>
+                        <div class="col-8"><i class="fas fa-birthday-cake pr-1"></i>{{ object.profile.birthday }}</div>
+                    </div>
+
+                    <!-- gender -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">Gender :</div>
+                        <div class="col-8"><i class="fas fa-restroom pr-1"></i>{{ object.profile.gender }}</div>
+                    </div>
+
+                    <!-- spouse_name -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Spouse name :</div>
+                        <div class="col-8"><i class="fas fa-user-friends pr-1"></i>{{ object.profile.spouse_name }}</div>
+                    </div>
+
+                    <!-- father_name -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">Father name :</div>
+                        <div class="col-8"><i class="fas fa-users pr-1"></i>{{ object.profile.father_name }}</div>
+                    </div>
+
+                    <!-- mother_name -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Mother name :</div>
+                        <div class="col-8"><i class="fas fa-users pr-1"></i>{{ object.profile.mother_name }}</div>
+                    </div>
+
+                    <!-- nid -->
+                    <div class="row border bg-light py-1">
+                        <div class="col-4 my-auto">National ID :</div>
+                        <div class="col-8"><i class="fas fa-id-card pr-1"></i>{{ object.profile.nid }}</div>
+                    </div>
+
+                    <!-- passport -->
+                    <div class="row border py-1">
+                        <div class="col-4 my-auto">Passport :</div>
+                        <div class="col-8"><i class="fas fa-passport pr-1"></i>{{ object.profile.passport }}</div>
+                    </div>
+                </div>
+
+                <!-- update -->
+                {% if perms.Core.change_user and perms.Core.change_profile %}
+                    <a class="row no-gutters text-decoration-none mt-3 w-100" href="{% url 'core:user_update' pk=object.pk %}">
+                        <button class="btn btn-sm btn-info font-saira w-100" type="button">UPDATE DETAILS</button>
+                    </a>
+                {% endif %}
+            {% else %}
+                No record found.
+            {% endif %}
+        {% else %}
+            User, you do not have permissions to view this content.
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% load static %}
+<nav class="navbar navbar-expand-md {% block nav-color %}navbar-dark bg-dark{% endblock nav-color %} {% block nav-pos %}fixed-top{% endblock nav-pos %} py-0" style="height: 50px">
+    <!-- BRAND -->
+    <a class="navbar-brand py-0" href="{% url 'index' %}" style="font-family: 'Bebas Neue', cursive;">
+        <img class="d-inline-block mb-1 p-1" src="{% static 'tigerpark/tpl_orange.png' %}" height="32" width="auto" alt="favicon">
+        <h3 class="navbar-text d-none d-sm-inline-block mb-0">project_name</h3>
+    </a>
+
+    <!-- TOGGLE -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar" aria-controls="Navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- MENU -->
+    <div class="collapse navbar-collapse" id="Navbar" style="font-family: 'Saira Condensed', sans-serif;">
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item text-secondary my-auto p-1">
+                    WELCOME, {{ user.email|upper }}
+                </li>
+                {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="{% url 'core:users' %}"><i class="fas fa-users mr-1"></i>USERS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-info" href="{% url 'admin:index' %}"><i class="fas fa-tools mr-1"></i>MANAGE</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt mr-1"></i>LOGOUT</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link text-success" href="{% url 'signup' %}"><i class="fas fa-user-plus mr-1"></i>SIGNUP</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{% url 'login' %}"><i class="fas fa-sign-in-alt mr-1"></i>LOGIN</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

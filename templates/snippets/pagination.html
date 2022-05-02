@@ -1,0 +1,40 @@
+{% if is_paginated %}
+    <div class="container-fluid border-top border-bottom p-2 d-print-none font-saira">
+        <div class="row">
+            <!-- PREV -->
+            <div class="col-6 col-md-auto order-md-first order-0 d-flex justify-content-start mt-2 mt-md-0">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">
+                        <button class="btn btn-sm btn-outline-info px-2 py-1">&laquo; PREV</button>
+                    </a>
+                {% else %}
+                    <button class="btn btn-sm btn-outline-secondary px-2 py-1 disabled">&laquo; PREV</button>
+                {% endif %}
+            </div>
+
+            <!-- PAGE -->
+            <div class="col-12 col-md order-first order-md-1 d-flex justify-content-center">
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <button class="btn btn-sm btn-info px-2 py-1 active mx-1">PAGE {{ i }}</button>
+                    {% else %}
+                        <a href="?page={{ i }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">
+                            <button class="btn btn-sm btn-outline-info px-2 py-1 mx-1">{{ i }}</button>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- NEXT -->
+            <div class="col-6 col-md-auto order-md-last order-2 d-flex justify-content-end mt-2 mt-md-0">
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% for k, v in request.GET.items %}{% if k != 'page' %}&{{ k }}={{ v }}{% endif %}{% endfor %}">
+                        <button class="btn btn-sm btn-outline-info px-2 py-1">NEXT &raquo;</button>
+                    </a>
+                {% else %}
+                    <button class="btn btn-sm btn-outline-secondary px-2 py-1 disabled">NEXT &raquo;</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

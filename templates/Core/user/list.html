@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+
+{% block title_text %}List | User{% endblock %}
+{% block content_heading_text %}User's List{% endblock %}
+
+{% block crumbs_items %}
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:users' %}">USERS</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    {% if perms.Core.add_user %}
+        <div class="row no-gutters content-border bg-info my-1">
+            <a class="w-100" href="{% url 'core:user_create' %}">
+                <button class="btn btn-info font-saira w-100" type="button"><i class="fas fa-user-plus pr-1"></i>CREATE NEW USER</button>
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="row no-gutters content-border">
+        {% if perms.Core.view_user %}
+            {% if object_list %}
+                <!-- table header -->
+                <div class="row no-gutters border font-saira text-info bg-dark text-truncate w-100 p-1">
+                    <div class="col-auto text-truncate pl-2 pr-1" style="min-width: 60px;" title="ID">ID</div>
+                    <div class="col-2 text-truncate px-1" style="min-width: 100px;" title="FULL NAME">NAME</div>
+                    <div class="col font-weight-bold text-truncate px-1" style="min-width: 120px;" title="EMAIL ADDRESS">EMAIL</div>
+                    <div class="col-auto text-truncate px-1" style="min-width: 120px;" title="PHONE NUMBER">PHONE</div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="min-width: 150px;" title="LAST LOGIN DATETIME">LAST LOGIN</div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="width: 24px;" title="ACTIVE STATUS">ACTIVE</div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="width: 24px;" title="STAFF STATUS">STAFF</div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="width: 24px;" title="SUPERUSER STATUS">SUPERUSER</div>
+                </div>
+
+                <!-- table data -->
+                {% for obj in object_list %}
+                <div class="row no-gutters border text-truncate w-100 p-1{% if forloop.counter0|divisibleby:2 %} bg-light{% endif %}">
+                    <div class="col-auto text-truncate pl-2 pr-1" style="min-width: 60px;" title="{{ obj.id }}"><a class="text-decoration-none" href="{% url 'core:user_detail' pk=obj.pk %}">{{ obj.id }}</a></div>
+                    <div class="col-2 text-truncate px-1" style="min-width: 100px;" title="{{ obj.get_full_name }}">{{ obj.get_full_name }}</div>
+                    <div class="col font-weight-bold text-truncate px-1" style="min-width: 120px;" title="{{ obj.email }}"><a class="text-decoration-none" href="{% url 'core:user_detail' pk=obj.pk %}">{{ obj.email }}</a></div>
+                    <div class="col-auto text-truncate px-1" style="min-width: 120px;" title="{{ obj.phone }}">{{ obj.phone }}</div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="min-width: 150px;" title="{{ obj.last_login }}">{{ obj.last_login|date:"y/m/d h:iA" }}</div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="width: 24px;" title="ACTIVE STATUS: {{ obj.is_active }}">
+                        {% if obj.is_active %}<i class="fas fa-check-circle text-success"></i>{% else %}<i class="fas fa-times-circle text-danger"></i>{% endif %}
+                    </div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="width: 24px;" title="STAFF STATUS: {{ obj.is_staff }}">
+                        {% if obj.is_staff %}<i class="fas fa-check-circle text-success"></i>{% else %}<i class="fas fa-times-circle text-danger"></i>{% endif %}
+                    </div>
+                    <div class="col-auto d-none d-md-block text-truncate px-1" style="width: 24px;" title="SUPERUSER STATUS: {{ obj.is_superuser }}">
+                        {% if obj.is_superuser %}<i class="fas fa-check-circle text-success"></i>{% else %}<i class="fas fa-times-circle text-danger"></i>{% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Pagination -->
+                {% include 'snippets/pagination.html' %}
+            {% else %}
+                No records found.
+            {% endif %}
+        {% else %}
+            User, you do not have permissions to view this content.
+        {% endif %}
+    </div>
+{% endblock %}

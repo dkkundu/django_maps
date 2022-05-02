@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <!-- TITLE -->
+    {% block title %}
+        <title>{% block title_text %}Base{% endblock title_text %} | project_name</title>
+    {% endblock title %}
+
+    <!-- META, FAVICON, CSS -->
+    {% include 'snippets/base_head.html' %}
+</head>
+<body>
+    {% block body %}
+
+    <!-- NAVBAR -->
+    {% block navbar %}
+        {% include 'snippets/navbar.html' %}
+    {% endblock navbar %}
+
+    <!-- PAGE -->
+    {% block page %}
+    <div class="container-fluid">
+        <!-- NO JS WARN -->
+        {% include 'snippets/base_js_warn.html' %}
+
+        <!-- MESSAGES -->
+        {% include 'snippets/base_msgs.html' %}
+
+        <!-- BODY -->
+        {% block content_body %}
+        <div class="row mt-1 mb-2">
+            <div class="col-lg-1 col-xl-2"></div>
+            <div class="col">
+                {% block content_container %}
+                    <div class="container-fluid p-0">
+                        <!-- CONTENT HEADING -->
+                        {% block content_heading %}
+                            <div class="jumbotron content-border my-1">
+                                <h1>{% block content_heading_text %}project_name{% endblock content_heading_text %}</h1>
+                            </div>
+                        {% endblock content_heading %}
+
+                        <!-- BREADCRUMBS -->
+                        {% block breadcrumbs %}
+                            <nav class="content-border font-saira my-1" aria-label="breadcrumb">
+                                <ol class="breadcrumb m-0">
+                                    {% block crumbs_home %}
+                                        <li class="breadcrumb-item" aria-current="page">
+                                            <a href="{% url 'index' %}">HOME</a>
+                                        </li>
+                                    {% endblock crumbs_home %}
+                                    {% block crumbs_items %}<!-- add crumbs here -->{% endblock crumbs_items %}
+                                </ol>
+                            </nav>
+                        {% endblock breadcrumbs %}
+
+                        <!-- CONTENT -->
+                        {% block content %}
+                            if you see this, something is went wrong!
+                        {% endblock content %}
+                    </div>
+                {% endblock content_container %}
+            </div>
+            <div class="col-lg-1 col-xl-2"></div>
+        </div>
+        {% endblock content_body %}
+    </div>
+    {% endblock page %}
+
+    <!-- FOOTER -->
+    {% block footer %}
+        {% include 'snippets/attribution.html' %}
+    {% endblock footer %}
+
+    <!-- SCRIPTS -->
+    {% block scripts %}
+        {% block js_main %}
+            <!-- Bootstrap, jQuery, popperJS -->
+            {% include 'snippets/base_scripts.html' %}
+            <!-- add your scripts here -->
+        {% endblock js_main %}
+        {% block js_extra %}{% endblock js_extra %}
+    {% endblock %}
+
+    {% endblock body %}
+</body>
+</html>

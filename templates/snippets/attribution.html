@@ -1,0 +1,27 @@
+{% load static %}
+
+<footer class="container-fluid bg-dark text-secondary px-2 px-lg-4" style="font-family: 'Saira Condensed', sans-serif;">
+    <div class="row">
+        <!-- COPYRIGHT -->
+        <div class="col-sm bg-dark justify-content-start my-auto text-truncate">
+            © 2020 <a href="https://tiger-park.com/" style="text-decoration: None">TIGER PARK LIMITED</a>. All Rights Reserved.
+        </div>
+
+        <!-- SIGNATURE -->
+        <div class="col-sm-auto bg-dark justify-content-center text-center my-auto" hidden>
+            Developed by <a href="https://zube.dev" style="text-decoration: None">Md Zubair Ibne Beg</a>
+        </div>
+
+        <!-- POWERED BY -->
+        <div class="col-sm-auto bg-dark">
+            <div class="row justify-content-end">
+                <h6 class="d-inline-block my-auto">powered by</h6>
+
+                <!-- TIGER PARK -->
+                <a class="mx-1" href="https://tiger-park.com/">
+                    <img class="d-inline-block p-1" src="{% static 'tigerpark/tpl_green.png' %}" height="32" width="auto" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %}
+{% load static widget_tweaks %}
+
+{% block title_text %}Create | User{% endblock %}
+{% block content_heading_text %}Create User{% endblock %}
+
+{% block crumbs_items %}
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:users' %}">USERS</a>
+    </li>
+    <li class="breadcrumb-item" aria-current="page">
+        <a href="{% url 'core:user_create' %}">CREATE</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="row no-gutters content-border my-1 p-3">
+        {% if perms.Core.add_user %}
+            {% if form %}
+                <form class="container-fluid" method="POST" accept-charset="UTF-8">
+                    {% csrf_token %}
+                    {% include 'snippets/hidden_fields.html' %}
+
+                    <!-- first_name -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form.first_name.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.first_name placeholder=form.first_name.label icon='fas fa-id-card' %}</div>
+                    </div>
+
+                    <!-- last_name -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form.last_name.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.last_name placeholder=form.last_name.label icon='far fa-id-card' %}</div>
+                    </div>
+
+                    <!-- email -->
+                    <div class="form-row border bg-light py-1">
+                        <div class="col-4 my-auto">{{ form.email.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.email placeholder=form.email.label icon='fas fa-at' %}</div>
+                    </div>
+
+                    <!-- phone -->
+                    <div class="form-row border py-1">
+                        <div class="col-4 my-auto">{{ form.phone.label }} :</div>
+                        <div class="col-8">{% include 'snippets/input_field.html' with form=form formfld=form.phone placeholder=form.phone.label icon='fas fa-mobile-alt' %}</div>
+                    </div>
+
+                    <!-- password1 -->
+                    <div class="form-row border bg-light p-1">
+                        <div class="col-4 my-auto">{{ form.password1.label }} :</div>
+                        <div class="col-8">{% include 'snippets/passwd_field.html' with form=form formfld=form.password1 placeholder=form.password1.label icon='fas fa-key' %}</div>
+                    </div>
+
+                    <!-- password2 -->
+                    <div class="form-row border p-1">
+                        <div class="col-4 my-auto">{{ form.password2.label }} :</div>
+                        <div class="col-8">{% include 'snippets/passwd_field.html' with form=form formfld=form.password2 placeholder=form.password2.label icon='fas fa-lock' %}</div>
+                    </div>
+
+                    <!-- button -->
+                    <button id='loader' class="btn btn-sm btn-outline-info font-saira w-100 mt-2" type="button" hidden><i class="fa fa-spinner fa-spin mr-1"></i>CREATING...</button>
+                    <button id='submit' class="btn btn-sm btn-info font-saira w-100 mt-2" type="submit"><i class="fas fa-user-plus mr-1"></i>CREATE USER</button>
+                </form>
+            {% else %}
+                No form found.
+            {% endif %}
+        {% else %}
+            User, you do not have permissions to create a new user.
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js_extra %}
+    <script src="{% static 'js/passwd_show.js' %}"></script>
+    <script src="{% static 'js/btn_loader.js' %}"></script>
+{% endblock %}

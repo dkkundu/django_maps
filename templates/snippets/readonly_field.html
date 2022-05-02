@@ -1,0 +1,19 @@
+<div class="input-group">
+    {% if prepend_icon %}
+        <div class="input-group-prepend">
+            <span class="input-group-text justify-content-center px-2" style="width: 35px">
+                <i class="{{ prepend_icon }}"></i>
+            </span>
+        </div>
+    {% endif %}
+
+    <input class="form-control form-control-sm{% if form.is_bound %} is-valid{% endif %}"{% if type %} type="{{ type }}" {% endif %}value="{{ value }}" readonly disabled>
+
+    {% if append_icon %}
+        <div class="input-group-append">
+            <span class="input-group-text justify-content-center px-2" style="width: 35px">
+                <i class="{{ append_icon }}"></i>
+            </span>
+        </div>
+    {% endif %}
+</div>

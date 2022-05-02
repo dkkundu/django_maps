@@ -1,0 +1,13 @@
+{# HIDDEN FIELDS: FORM #}
+{% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+{% endfor %}
+
+{# NON-FIELD ERRORS: FORM #}
+{% if form.non_field_errors %}
+    <div class="alert alert-danger font-saira" role="alert">
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+{% endif %}

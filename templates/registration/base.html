@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block title_text %}Registration Base{% endblock %}
+
+{% block content_body %}
+    <div class="row justify-content-center mt-5">
+        {% block reg_body %}
+        <div class="col col-sm-9 col-md-6 col-lg-4 col-xl-3 content-border mt-5 m-0 p-0">
+            {% block reg_heading %}
+                <div class="row no-gutters bg-dark text-info justify-content-center px-3 py-2">
+                    <h4 class="col-auto font-weight-bold font-saira mb-0">{% block reg_heading_text %}TITLE{% endblock reg_heading_text %}</h4>
+                </div>
+            {% endblock reg_heading %}
+
+            {% block reg_content %}
+                <div class="row no-gutters justify-content-center">
+                    If you're seeing this, then something went wrong. Oops!
+                </div>
+            {% endblock reg_content %}
+        </div>
+        {% endblock reg_body %}
+    </div>
+{% endblock %}

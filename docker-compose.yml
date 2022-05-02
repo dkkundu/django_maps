@@ -1,0 +1,50 @@
+version: "3.7"
+
+services:
+  mq:
+    container_name: DJMAPS_mq
+    image: rabbitmq:3-alpine
+
+  db:
+    container_name: djmaps_db
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  app:
+    container_name: djmaps_app
+    build:
+      context: .
+    ports:
+    - "8000:8000"
+    volumes:
+    - .:/DJMAPS
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=postgres
+    depends_on:
+      - db
+
+  celeryworker:
+    container_name: DJMAPS_celery
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DISABLE_LOGGING=True
+      - CELERY_BROKER_URL=amqp://mq:5672/
+    command: celery worker -A DJMAPS -l INFO
+    depends_on:
+      - mq
+      - db
+      - app
