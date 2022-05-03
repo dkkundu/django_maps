@@ -96,6 +96,13 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+dj
+.dj
+/dj
+DJ
+/DJ
+dj/
+DJ/
 
 # Temporary
 .tmp/
